@@ -13,7 +13,7 @@ This repository contains a very simple web service that simulates rolling a die 
 - [Python CI/CD Kata](#python-cicd-kata)
   - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
-  - [Dependencies](#dependencies)
+  - [Project dependencies](#project-dependencies)
   - [Local development server](#local-development-server)
   - [Code quality](#code-quality)
     - [Linter](#linter)
@@ -27,7 +27,6 @@ This repository contains a very simple web service that simulates rolling a die 
   - [Github Actions Extra: Running GitHub Actions Locally with Act](#github-actions-extra-running-github-actions-locally-with-act)
   - [Deliverable Instructions](#deliverable-instructions)
     - [Submission](#submission)
-    - [Notes](#notes)
 
 ## Prerequisites
 
@@ -40,14 +39,20 @@ This repository contains a very simple web service that simulates rolling a die 
 - Create a Render account (you can sign up using GitHub): [Render](https://render.com/)
 - **(Recommended)** Install [VS Code](https://code.visualstudio.com/). On the workshop day, open the practice in VS Code and install the recommended extensions when prompted (watch for the popup in the bottom right corner). While optional, this will enable useful integrations that enhance the experience.
 
-## Dependencies
+## Project dependencies
 
-1. Create and activate a virtual environment:
+1. Create and activate a virtual environment (mac, linux):
 
 ```sh
 uv venv
 uv sync
 source .venv/bin/activate
+```
+
+On windows:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
 ```
 
 2. If you need to install new dependencies or remove them you can do so with:
@@ -78,13 +83,13 @@ PYTHONPATH=app uv run uvicorn main:app --port 8000 --reload
 1. Check if linter rules are passed in the repository:
 
 ```sh
-ruff check .
+uv run ruff check .
 ```
 
 2. Fix autofixable problems:
 
 ```sh
-ruff check --fix .
+uv run ruff check --fix .
 ```
 
 ### Formatter
@@ -92,13 +97,13 @@ ruff check --fix .
 Format all the python code in the repository:
 
 ```sh
-ruff format .
+uv run ruff format .
 ```
 
 To check if formatting makes changes, run:
 
 ```sh
-ruff format --check .
+uv run ruff format --check .
 ```
 
 ### Static type checker
@@ -106,7 +111,7 @@ ruff format --check .
 Check types:
 
 ```sh
-pyright
+uv run pyright
 ```
 
 ### Tests
@@ -114,7 +119,7 @@ pyright
 Run all tests:
 
 ```sh
-pytest
+uv run pytest
 ```
 
 ## Deployment
@@ -179,19 +184,13 @@ pytest
 
 ## Pre-commit hooks
 
-1. Install pre-commit as a dev dependency:
-
-```sh
-uv add --group dev pre-commit
-```
-
-2. Install hooks:
+Install hooks:
 
 ```sh
 pre-commit install
 ```
 
-3. Test pre-commit hooks while configuring them:
+Test pre-commit hooks while configuring them:
 
 ```sh
 pre-commit install
@@ -217,36 +216,9 @@ More details: [Act Usage Guide](https://nektosact.com/usage/index.html#using-eve
 
 ## Deliverable Instructions
 
-The goal of this exercise is to apply what you've learned in this Kata to the repository [https://github.com/breadhardIT/travel-agency-kata](https://github.com/breadhardIT/travel-agency-kata). The Kata is in Java.
-
-Specifically, you need to add the following:
-
-- **Pre-commit hooks**:
-
-  - Code quality:
-    - Linting (optional)
-    - Formatting
-    - Tests
-  - Finding the right tools to achieve these in Java is part of the practice.
-
-- **CI/CD with GitHub Actions**:
-  - Same code quality checks
-  - Delivery to a new Docker Hub repository
-  - Deployment to a new service in Render
-
-The following diagram illustrates the development and CI/CD flow we aim to achieve, which is the same flow we've worked with in this Kata: `<DIAGRAM>`
-
-Enjoy the practice and have fun building your CI/CD pipeline! 🚀
-
 ### Submission
 
 To submit the exercise, please send an email to aulaupm@nextdigital.es before the start of the next workshop (April 23, 2025), including:
 
 1. The link to the GitHub Actions CI/CD pipeline used to deploy the service to Docker Hub and Render.
 2. The URL of the deployed service. The URL should point directly to the Swagger documentation.
-
-### Notes
-
-- **Note 1**: Keep in mind that Java is a compiled language, unlike Python. This changes the approach for CI/CD. Base your CI/CD configuration on how you set up the repository when working locally.
-
-- **Note 2**: Since Java is a strongly typed language, you do not need a static type checker. The compiler itself will handle type errors.
