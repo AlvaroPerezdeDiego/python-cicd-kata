@@ -24,7 +24,7 @@ jobs:
 
       - name: Run linter chcks
         run: uv run ruff check .
-        shell: bashcheck-linter
+        shell: bash
 
   check-format:
     runs-on: ubuntu-latest
